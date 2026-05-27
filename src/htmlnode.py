@@ -1,3 +1,4 @@
+from blocknode import BlockType, markdown_to_blocks, block_to_block_type
 
 class HTMLNode():
     def __init__(self, tag=None, value=None, children=None, props=None):
@@ -26,7 +27,7 @@ class LeafNode(HTMLNode):
         super().__init__(tag, value, None, props)
 
     def to_html(self):
-        if not self.value:
+        if self.value == None:
             raise ValueError
         if self.tag == None:
             return self.value
@@ -41,12 +42,16 @@ class ParentNode(HTMLNode):
 
     def to_html(self):
         result = ""
-        if not self.tag:
+        if self.tag == None:
             raise ValueError
-        if not self.children:
+        if self.children == None:
             raise ValueError("Missing children")
         for child in self.children:
             result += child.to_html()
         return f'<{self.tag}>{result}</{self.tag}>'
         
+
+
+
+
 
