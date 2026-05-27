@@ -1,6 +1,11 @@
 import shutil
 import os
 from generate_page import generate_pages_recursive
+import sys
+
+basepath = "/"
+if len(sys.argv) > 1:
+    basepath = sys.argv[1]
 
 def del_dir(dest_dir_path):
     if os.path.exists(dest_dir_path):
@@ -30,9 +35,9 @@ def copy_files_recursive(source_dir_path, dest_dir_path):
 
 
 def main():
-    del_dir("public")
-    copy_files_recursive("static", "public")
-    generate_pages_recursive("content", "template.html", "public")
+    del_dir("docs")
+    copy_files_recursive("static", "docs")
+    generate_pages_recursive(basepath, "content", "template.html", "docs")
 
 
 main()
